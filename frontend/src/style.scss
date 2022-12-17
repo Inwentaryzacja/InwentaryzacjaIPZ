@@ -1,0 +1,54 @@
+/* 
+color palette from light to dark:
+White:      #D9E4EC
+Light:     #B7CFDC
+Medium:    #6AABD2
+Dark:     #385E72
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.white {
+  color: #d9e4ec;
+}
+
+.white-bg {
+  background-color: #d9e4ec;
+}
+
+.light {
+  color: #b7cfdc;
+}
+
+.light-bg {
+  background-color: #b7cfdc;
+}
+
+.medium {
+  color: #6aabd2;
+}
+
+.medium-bg {
+  background-color: #6aabd2;
+}
+
+.dark {
+  color: #385e72;
+}
+
+.dark-bg {
+  background-color: #385e72;
+}
+
+.dark-border {
+  border-color: #385e72;
+}
