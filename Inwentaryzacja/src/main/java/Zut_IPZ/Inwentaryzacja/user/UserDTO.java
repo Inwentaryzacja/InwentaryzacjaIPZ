@@ -1,6 +1,6 @@
-package Zut_IPZ.Inwentaryzacja.User;
+package Zut_IPZ.Inwentaryzacja.user;
 
-import Zut_IPZ.Inwentaryzacja.Role.Role;
+import Zut_IPZ.Inwentaryzacja.role.Role;
 import Zut_IPZ.Inwentaryzacja.email.ValidEmail;
 import Zut_IPZ.Inwentaryzacja.password.PasswordDTO;
 import Zut_IPZ.Inwentaryzacja.password.PasswordMatches;
