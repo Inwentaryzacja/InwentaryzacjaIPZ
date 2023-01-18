@@ -1,4 +1,26 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "@vue/reactivity";
+
+let email = ref("");
+let username = ref("");
+let password = ref("");
+let passwordAgain = ref("");
+
+function emailCorrect(): boolean {
+  return /^[^@]+@\w+(\.\w+)+\w$/.test(email.value);
+}
+
+function usernameCorrect(): boolean {
+  // At least 6 chars and 1 capital character
+  return (
+    username.value.length > 6 && username.value.toLowerCase() != username.value
+  );
+}
+
+function passwordsAreTheSame(): boolean {
+  return password.value == passwordAgain.value;
+}
+</script>
 
 <template>
   <form id="login">
@@ -6,12 +28,28 @@
       src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1000px-Adidas_Logo.svg.png"
     /><br />
     <label for="email">Email</label><br />
-    <input type="text" id="email" placeholder="Wpisz Email" /><br /><br />
+    <input
+      v-model="email"
+      type="text"
+      id="email"
+      placeholder="Wpisz Email"
+    /><br /><br />
+    <div>{{ !emailCorrect() ? "Email jest niepoprawny" : "" }}</div>
+    <br />
+    <label for="username">Nazwa użytkownika</label><br />
+    <input
+      v-model="username"
+      type="text"
+      id="username"
+      placeholder="Wpisz nazwę użytkownika"
+    /><br /><br />
+    <div>{{ !usernameCorrect() ? "Hasło jest niepoprawne" : "" }}</div>
+    <br />
     <label>Hasło</label><br />
-    <input type="text" id="password" placeholder="Wpisz hasło" /><br />
-    <a href="">Zapomniałem hasła</a><br />
-    <button type="button" id="rejestration">Rejestracja</button>
-    <button type="button" id="login">Dalej</button>
+    <input v-model="password" type="text" id="password" placeholder="Wpisz hasło" /><br />
+    <input v-model="passwordAgain" type="text" id="passwordconfirm" placeholder="Powtórz hasło" /><br /><br />
+    <div>{{ !passwordsAreTheSame() ? "Hasła nie są takie same" : "" }}</div>
+    <button type="button">Zarejestruj</button>
   </form>
 </template>
 
@@ -61,7 +99,7 @@ form#login {
     text-decoration: none;
   }
 
-  #login {
+  button {
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -78,31 +116,8 @@ form#login {
     transition-duration: 0.1s;
   }
 
-  #login:hover {
+  button:hover {
     background-color: $hover-color;
-  }
-
-  #rejestration {
-    color: $font-color;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: white;
-    padding: 12px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 50px;
-    margin-bottom: 0px;
-    border: 2px solid $font-color;
-    border-radius: 10px;
-    position: relative;
-    right: 120px;
-    transition-duration: 0.1s;
-  }
-
-  #rejestration:hover {
-    background-color: $hover-color;
-    color: white;
-    border: 2px solid $hover-color;
   }
 }
 </style>

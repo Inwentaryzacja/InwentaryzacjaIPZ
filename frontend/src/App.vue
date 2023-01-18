@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import LoginForm from "./components/LoginForm.vue";
+import RegistrationForm from "./components/RegistrationForm.vue";
 </script>
 
 <template>
   <div class="centered">
-    <LoginForm />
+    <RegistrationForm />
   </div>
 </template>
 
