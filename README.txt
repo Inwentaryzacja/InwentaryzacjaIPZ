@@ -10,6 +10,8 @@ Propozycja
 Można zrobić, teoretycznie  kolejnego brancha bez bazy danych, i uzywac Postmana, do sprawdzania czy nasze metody, ktore napisalismy dzialaja, ale 
 nwm czy na dluzsza mete ma to sens.
 
+# postman api collection
+https://api.postman.com/collections/25220719-a91c5b8e-b22f-4a3c-8c74-089c134d68dc?access_key=PMAT-01GPGFBHPXGJNJ83KD9ZZRTWBC
 
 Uwagi:
 w pliku application.properties
