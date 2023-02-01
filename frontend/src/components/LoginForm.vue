@@ -8,7 +8,7 @@
     <label for="email">Email</label><br />
     <input type="text" id="email" placeholder="Wpisz Email" /><br /><br />
     <label>Hasło</label><br />
-    <input type="text" id="password" placeholder="Wpisz hasło" /><br />
+    <input type="password" id="password" placeholder="Wpisz hasło" /><br />
     <a href="">Zapomniałem hasła</a><br />
     <button type="button" id="rejestration">Rejestracja</button>
     <button type="button" id="login">Dalej</button>

@@ -47,7 +47,7 @@ function passwordsAreTheSame(): boolean {
     <br />
     <label>Hasło</label><br />
     <input v-model="password" type="text" id="password" placeholder="Wpisz hasło" /><br />
-    <input v-model="passwordAgain" type="text" id="passwordconfirm" placeholder="Powtórz hasło" /><br /><br />
+    <input v-model="passwordAgain" type="password" id="passwordconfirm" placeholder="Powtórz hasło" /><br /><br />
     <div>{{ !passwordsAreTheSame() ? "Hasła nie są takie same" : "" }}</div>
     <button type="button">Zarejestruj</button>
   </form>
