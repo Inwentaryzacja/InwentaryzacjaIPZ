@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import LoginForm from "./components/LoginForm.vue";
 import RegistrationForm from "./components/RegistrationForm.vue";
+import { RouterView, RouterLink } from "vue-router";
 </script>
 
 <template>
+  <RouterLink to="/">Home</RouterLink>
+  <RouterLink to="/register">Register</RouterLink>
+  <RouterLink to="/login">Login</RouterLink>
   <div class="centered">
-    <RegistrationForm />
+    <RouterView />
   </div>
 </template>
 
@@ -16,5 +20,4 @@ import RegistrationForm from "./components/RegistrationForm.vue";
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 </style>
