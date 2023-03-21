@@ -20,7 +20,7 @@
     methods: {
       async getItems() {
         try {
-          const response = await fetch('http://localhost:8081/items');
+          const response = await fetch('http://localhost:8080/items');
           const data = await response.json();
           this.items = data;
         } catch (error) {
@@ -31,4 +31,6 @@
   }
   </script>
 
-  
+<style scoped>
+
+</style>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-
-
+import HomeNav from "../components/HomeNav.vue";
+import TreeNav from "../components/TreeNav.vue";
 </script>
 <template>
-    Home
+  <HomeNav></HomeNav>
+  <TreeNav></TreeNav>
 </template>
