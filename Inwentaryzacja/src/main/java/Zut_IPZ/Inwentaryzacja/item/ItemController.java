@@ -15,6 +15,7 @@ public class ItemController {
         this.itemService = itemService;
     }
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:5173")
     public List<Item> GetAllItems(){
         return this.itemService.GetAllItems();
     }
