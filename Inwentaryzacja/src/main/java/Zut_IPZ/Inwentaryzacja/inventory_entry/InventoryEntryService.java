@@ -1,9 +1,14 @@
 package Zut_IPZ.Inwentaryzacja.inventory_entry;
 
 import Zut_IPZ.Inwentaryzacja.item.Item;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TooManyListenersException;
@@ -25,6 +30,38 @@ public class InventoryEntryService {
     }
     public InventoryEntry GetUserRootInventoryEntry(Long id){
         return this.inventoryEntryRepository.findByParentIsNullAndUser_Id(id).get(0);
+    }
+    public ParentChildren GetUserTreeInventoryEntry(Long id){
+
+        ParentChildren root = new ParentChildren();
+        List<InventoryEntry> entries = this.inventoryEntryRepository.findByUser_Id(id);
+        InventoryEntry firstElement = this.GetUserRootInventoryEntry(id);
+        root.entry = firstElement;
+
+        for(InventoryEntry entry : entries){
+            if(entry.getParent() == null){
+                continue;
+            }
+            else{
+
+                ParentChildren child = new ParentChildren();
+                child.entry = entry;
+                root.findEntry(entry.getParent(), root).children.add(child);
+            }
+        }
+
+        return root;
+
+
+//        List<InventoryEntry> entries = this.inventoryEntryRepository.findByUser_Id(id);
+//        InventoryEntry root = this.GetUserRootInventoryEntry(id);
+//        DefaultTreeModel tree = new DefaultTreeModel((TreeNode) root);
+//        for(InventoryEntry entry : entries){
+//            if(entry.getParent() != null){
+//                tree.insertNodeInto((MutableTreeNode) entry, (MutableTreeNode) entry.getParent(), ((MutableTreeNode) entry.getParent()).getChildCount());
+//            }
+//        }
+//        return tree;
     }
     public List<InventoryEntry> GetChildrenInventoryEntries(Long id){
         return this.inventoryEntryRepository.findByParent_Id(id);

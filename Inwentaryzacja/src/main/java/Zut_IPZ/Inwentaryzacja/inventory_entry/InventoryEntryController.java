@@ -1,6 +1,5 @@
 package Zut_IPZ.Inwentaryzacja.inventory_entry;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +24,10 @@ public class InventoryEntryController {
     @GetMapping({"/user/{id}/root"})
     public InventoryEntry GetUserRootInventoryEntry(@PathVariable Long id){
         return this.inventoryEntryService.GetUserRootInventoryEntry(id);
+    }
+    @GetMapping({"/user/{id}/tree"})
+    public ParentChildren GetUserTreeInventoryEntry(@PathVariable Long id){
+        return this.inventoryEntryService.GetUserTreeInventoryEntry(id);
     }
     @GetMapping({"/{id}/children"})
     public List<InventoryEntry> GetChildrenInventoryEntries(@PathVariable Long id){
