@@ -1,41 +1,56 @@
 package Zut_IPZ.Inwentaryzacja.inventory_entry;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping({"/inventory_entries"})
 public class InventoryEntryController {
     private final InventoryEntryService inventoryEntryService;
     @Autowired
+    private ModelMapper modelMapper;
+
     public InventoryEntryController(InventoryEntryService inventoryEntryService){
         this.inventoryEntryService = inventoryEntryService;
     }
     @GetMapping
-    public List<InventoryEntry> GetAllInventoryEntries(){
-        return this.inventoryEntryService.GetAllInventoryEntries();
+    public List<InventoryEntryDTO> GetAllInventoryEntries(){
+        return this.inventoryEntryService.GetAllInventoryEntries().stream()
+                .map(inventory -> modelMapper.map(inventory,InventoryEntryDTO.class))
+                .collect(Collectors.toList());
     }
     @GetMapping({"/{id}"})
-    public InventoryEntry GetInventoryEntry(@PathVariable Long id){
-        return this.inventoryEntryService.GetInventoryEntryById(id);
+    public ResponseEntity<InventoryEntryDTO> GetInventoryEntry(@PathVariable Long id){
+        InventoryEntry inventoryEntry =  inventoryEntryService.GetInventoryEntryById(id);
+        InventoryEntryDTO inventoryEntryDTO = modelMapper.map(inventoryEntry, InventoryEntryDTO.class);
+        return ResponseEntity.ok().body(inventoryEntryDTO);
     }
     @GetMapping({"/user/{id}/root"})
-    public InventoryEntry GetUserRootInventoryEntry(@PathVariable Long id){
-        return this.inventoryEntryService.GetUserRootInventoryEntry(id);
+    public ResponseEntity<InventoryEntryDTO> GetUserRootInventoryEntry(@PathVariable Long id){
+        InventoryEntry inventoryEntry =  inventoryEntryService.GetUserRootInventoryEntry(id);
+        InventoryEntryDTO inventoryEntryDTO = modelMapper.map(inventoryEntry, InventoryEntryDTO.class);
+        return ResponseEntity.ok().body(inventoryEntryDTO);
     }
     @GetMapping({"/user/{id}/tree"})
     public ParentChildren GetUserTreeInventoryEntry(@PathVariable Long id){
         return this.inventoryEntryService.GetUserTreeInventoryEntry(id);
     }
     @GetMapping({"/{id}/children"})
-    public List<InventoryEntry> GetChildrenInventoryEntries(@PathVariable Long id){
-        return this.inventoryEntryService.GetChildrenInventoryEntries(id);
+    public List<InventoryEntryDTO> GetChildrenInventoryEntries(@PathVariable Long id){
+        return inventoryEntryService.GetChildrenInventoryEntries(id).stream()
+                .map(inventory -> modelMapper.map(inventory,InventoryEntryDTO.class))
+                .collect(Collectors.toList());
     }
     @GetMapping({"/user/{id}"})
-    public List<InventoryEntry> GetUserAllInventoryEntries(@PathVariable Long id){
-        return this.inventoryEntryService.GetUserAllInventoryEntries(id);
+    public List<InventoryEntryDTO> GetUserAllInventoryEntries(@PathVariable Long id){
+        return this.inventoryEntryService.GetUserAllInventoryEntries(id).stream()
+                .map(inventory -> modelMapper.map(inventory,InventoryEntryDTO.class))
+                .collect(Collectors.toList());
     }
     @PostMapping
     public InventoryEntry AddInventoryEntry(@RequestBody InventoryEntry inventoryEntry){
