@@ -37,8 +37,10 @@ public class InventoryEntryController {
         return ResponseEntity.ok().body(inventoryEntryDTO);
     }
     @GetMapping({"/user/{id}/tree"})
-    public ParentChildren GetUserTreeInventoryEntry(@PathVariable Long id){
-        return this.inventoryEntryService.GetUserTreeInventoryEntry(id);
+    public ResponseEntity<ParentChildrenDTO> GetUserTreeInventoryEntry(@PathVariable Long id){
+        ParentChildren parentChildren = this.inventoryEntryService.GetUserTreeInventoryEntry(id);
+        ParentChildrenDTO parentChildrenDTO = modelMapper.map(parentChildren, ParentChildrenDTO.class);
+        return ResponseEntity.ok().body(parentChildrenDTO);
     }
     @GetMapping({"/{id}/children"})
     public List<InventoryEntryDTO> GetChildrenInventoryEntries(@PathVariable Long id){
