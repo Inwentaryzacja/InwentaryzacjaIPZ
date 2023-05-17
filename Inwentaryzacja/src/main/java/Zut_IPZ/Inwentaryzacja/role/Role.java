@@ -16,5 +16,11 @@ public class Role {
     @SequenceGenerator(name = "role_sequence", sequenceName = "role_sequence", allocationSize = 1)
     private Long id;
     @NonNull
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Name name;
+
+     public enum Name {
+         USER,
+         ADMIN
+    }
 }

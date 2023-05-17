@@ -6,19 +6,11 @@
 package Zut_IPZ.Inwentaryzacja.user;
 
 import Zut_IPZ.Inwentaryzacja.role.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -32,7 +24,14 @@ public class User {
     private @NonNull String password;
     private @NonNull String email;
     private @NonNull Integer verified;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private @NonNull Role role;
+
+    public User(@NonNull String login, @NonNull String password, @NonNull String email, @NonNull Integer verified) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.verified = verified;
+    }
 }

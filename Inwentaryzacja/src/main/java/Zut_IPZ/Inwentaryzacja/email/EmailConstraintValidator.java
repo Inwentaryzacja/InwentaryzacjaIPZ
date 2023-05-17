@@ -2,6 +2,7 @@ package Zut_IPZ.Inwentaryzacja.email;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -1,11 +1,11 @@
 package Zut_IPZ.Inwentaryzacja.password.validator;
 
 import Zut_IPZ.Inwentaryzacja.password.ValidPassword;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.passay.*;
 import org.springframework.stereotype.Component;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
 import static org.passay.EnglishCharacterData.*;

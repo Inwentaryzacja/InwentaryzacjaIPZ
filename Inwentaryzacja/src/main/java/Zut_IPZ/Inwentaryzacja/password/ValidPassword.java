@@ -4,6 +4,7 @@ package Zut_IPZ.Inwentaryzacja.password;
 import Zut_IPZ.Inwentaryzacja.password.validator.PasswordConstraintValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
