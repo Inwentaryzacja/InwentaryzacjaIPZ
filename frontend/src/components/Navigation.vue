@@ -1,12 +1,13 @@
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+</script>
+
 <template>
   <div class="navigation">
-    <img
-      src="box.png"
-    />
-    <span>Home</span>
-    <span>Zarządzaj tagami</span>
-    <span>Ulubione</span>
-    <span>Ustawienia</span>
+    <img src="box.png" />
+    <span><RouterLink to="/">Home</RouterLink></span>
+    <span><RouterLink to="/register">Zarejestruj</RouterLink></span>
+    <span><RouterLink to="/login">Zaloguj</RouterLink></span>
   </div>
 </template>
 
