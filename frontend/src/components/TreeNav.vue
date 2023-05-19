@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import TreeElement from "../components/TreeElement.vue";
-import { reactive, onMounted } from "vue";
-import get from "../domain/fetchTree";
+import { onMounted, ref } from "vue";
+import { get, Entry, Child } from "../domain/fetchTree";
 
-const data = reactive({ entry: {}, children: {} });
+const root_entry = ref<Entry>();
+const root_children = ref<Array<Child>>();
 
-onMounted(async () => { 
+onMounted(async () => {
   const jsonData = await get();
 
-  data.entry = jsonData.entry;
-  data.children = jsonData.children;
+  root_entry.value = jsonData.entry;
+  root_children.value = jsonData.children;
 });
 </script>
 
@@ -24,8 +25,8 @@ onMounted(async () => {
     <div class="elements">
       <TreeElement
         v-bind="{
-          entry: data.entry,
-          children: data.children,
+          entry: root_entry,
+          children: root_children,
           recursionDepth: 0,
         }"
       />

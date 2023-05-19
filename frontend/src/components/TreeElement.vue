@@ -1,16 +1,43 @@
 <script setup lang="ts">
+import { computed, type PropType } from "vue";
+interface Entry {
+  id: number;
+  item: Item;
+}
 
-defineProps(["entry", "children", "recursionDepth"]);
+interface Item {
+  name: string;
+  fillable: boolean;
+  createdAt: string;
+  description: string;
+}
+
+interface Child {
+  entry: Entry;
+  children: Entry[];
+}
+
+const props = defineProps({
+  entry: Object as PropType<Entry>,
+  children: Array as PropType<Array<Child>>,
+  recursionDepth: { type: Number, required: true },
+});
+
+const has_children = computed(() => {
+  return props?.children?.length != undefined && props.children.length > 0;
+});
+console.log(props?.children);
 </script>
 
 <template>
   <div class="wrap">
-    {{ entry?.item?.name }} <span v-if="children.length > 0"> v</span>
+    {{ props?.entry?.item?.name }}
+    <span v-if="has_children"> v</span>
     <div v-for="child in children">
       <TreeElement
         v-bind="{
-          entry: child.entry,
-          children: child.children,
+          entry: child?.entry,
+          children: child?.children,
           recursionDepth: recursionDepth + 1,
         }"
       />
