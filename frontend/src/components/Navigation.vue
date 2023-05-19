@@ -5,32 +5,38 @@ import { RouterLink } from "vue-router";
 <template>
   <div class="navigation">
     <img src="box.png" />
-    <span><RouterLink to="/">Home</RouterLink></span>
-    <span><RouterLink to="/register">Zarejestruj</RouterLink></span>
-    <span><RouterLink to="/login">Zaloguj</RouterLink></span>
+    <div class="navigation-items">
+      <RouterLink class="nav-item" to="/">Home</RouterLink>
+      <RouterLink class="nav-item" to="/register">Zarejestruj</RouterLink>
+      <RouterLink class="nav-item" to="/login">Zaloguj</RouterLink>
+    </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .navigation {
   width: 100%;
-  height: 161px;
+  height: 20vh;
   border-bottom: solid rgba(0, 0, 0, 0.25) 1px;
+  display: flex;
+}
+
+.navigation-items {
+  padding: 10vh;
+  .nav-item {
+    margin-left: 100px;
+  }
 }
 
 img {
-  height: 121px;
-  display: inline-block;
+  height: 80%;
+  margin: 10px;
   margin-left: 50px;
 }
 
-span {
+.navigation a {
+  font-size: 1.5rem;
   color: #0082fb;
-  font-family: Arial;
-  font-size: 24px;
-  margin: 135px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  text-decoration: none;
 }
 </style>

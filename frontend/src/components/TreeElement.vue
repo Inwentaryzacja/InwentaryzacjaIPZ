@@ -79,7 +79,7 @@ const has_children = computed(() => {
 .expand-btn {
   float: right;
   width: 40px;
-
+  margin-right: 10px;
   background-color: #6aabd2;
 }
 </style>
