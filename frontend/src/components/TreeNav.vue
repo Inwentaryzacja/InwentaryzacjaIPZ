@@ -36,7 +36,7 @@ onMounted(async () => {
 
 <style scoped>
 .box {
-  width: 25vw;
+  width: 400px;
   height: 600px;
   border-right: solid rgba(0, 0, 0, 0.24) 1px;
   font-family: Arial;
@@ -64,7 +64,7 @@ onMounted(async () => {
 }
 
 .elements {
-  overflow: scroll;
+  overflow-y: scroll;
   height: 500px;
   width: 100%;
 }
