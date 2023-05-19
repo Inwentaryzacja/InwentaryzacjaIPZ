@@ -3,6 +3,8 @@ package Zut_IPZ.Inwentaryzacja.attribute_value;
 import Zut_IPZ.Inwentaryzacja.attribute.Attribute;
 import Zut_IPZ.Inwentaryzacja.inventory_entry.InventoryEntry;
 import Zut_IPZ.Inwentaryzacja.item.Item;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 @AllArgsConstructor

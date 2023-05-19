@@ -1,18 +1,24 @@
 package Zut_IPZ.Inwentaryzacja.item;
 
+import Zut_IPZ.Inwentaryzacja.tag.Tag;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
-@Table(name = "item")
+@NoArgsConstructor
+@Table(name="item")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property="id")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +27,10 @@ public class Item {
     private @NonNull Boolean fillable;
     private @NonNull Date createdAt;
     private String description;
+
+    @ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name="item_tag",
+            joinColumns=@JoinColumn(name="item_id"),
+            inverseJoinColumns=@JoinColumn(name="tag_id"))
+    private Set<Tag> tags = new HashSet<>();
 }

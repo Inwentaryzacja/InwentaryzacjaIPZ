@@ -1,5 +1,6 @@
 package Zut_IPZ.Inwentaryzacja.inventory_entry;
 
+import Zut_IPZ.Inwentaryzacja.attribute_value.AttributeValue;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,10 @@ public class InventoryEntryController {
     }
     @PostMapping
     public InventoryEntry AddInventoryEntry(@RequestBody InventoryEntry inventoryEntry){
-        return this.inventoryEntryService.AddInventoryEntry(inventoryEntry);
+        for (AttributeValue attributeValue : inventoryEntry.getAttributeValues()) {
+            attributeValue.setInventoryEntry(inventoryEntry);
+        }
+        return inventoryEntryService.AddInventoryEntry(inventoryEntry);
     }
     @PutMapping({"/{id}"})
     public InventoryEntry UpdateInventoryEntry(@PathVariable Long id, @RequestBody InventoryEntry inventoryEntryDetails){

@@ -1,37 +1,63 @@
 package Zut_IPZ.Inwentaryzacja.tag;
 
-import Zut_IPZ.Inwentaryzacja.user.User;
+import Zut_IPZ.Inwentaryzacja.attribute.Attribute;
+import Zut_IPZ.Inwentaryzacja.attribute.AttributeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class TagService {
     private final TagRepository tagRepository;
+    private final AttributeRepository attributeRepository;
 
     @Autowired
-    public TagService(TagRepository tagRepository){
+    public TagService(TagRepository tagRepository, AttributeRepository attributeRepository){
         this.tagRepository = tagRepository;
+        this.attributeRepository = attributeRepository;
     }
     public List<Tag> GetAllTags(){
-        return this.tagRepository.findAll();
+        return tagRepository.findAll();
     }
     public Tag GetById(Long id){
-        return (Tag)this.tagRepository.findById(id).orElseThrow(() -> {
-            return new NoSuchElementException("Tag not found with id " + id);
-        });
+        return tagRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Tag not found with id " + id));
     }
-    public Tag AddTag(Tag tag){
-        return this.tagRepository.save(tag);
+
+    public Tag addTag(Tag tag){
+        Set<Attribute> attributes = new HashSet<>();
+        for(Attribute attribute : tag.getAttributes()){
+            Optional<Attribute> existingAttribute = attributeRepository.findByName(attribute.getName());
+            if(existingAttribute.isPresent()){
+                attributes.add(existingAttribute.get());
+            }else{
+                attributes.add(attribute);
+            }
+        }
+        tag.setAttributes(attributes);
+
+        return tagRepository.save(tag);
     }
-    public Tag UpdateTag(Long id, Tag tagDetails){
+
+    public Tag updateTag(Long id, Tag tagDetails){
         Tag tag = this.GetById(id);
         tag.setName(tagDetails.getName());
+
+        Set<Attribute> attributes = new HashSet<>();
+        for(Attribute attribute : tag.getAttributes()){
+            Optional<Attribute> existingAttribute = attributeRepository.findByName(attribute.getName());
+            if(existingAttribute.isPresent()){
+                attributes.add(existingAttribute.get());
+            }else{
+                attributes.add(attribute);
+            }
+        }
+        tag.setAttributes(attributes);
+
         return this.tagRepository.save(tag);
     }
+
     public void DeleteTag(Long id){
-        this.tagRepository.deleteById(id);
+        tagRepository.deleteById(id);
     }
 }

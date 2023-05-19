@@ -17,22 +17,22 @@ public class ItemController {
     }
     @GetMapping
     public List<Item> GetAllItems(){
-        return this.itemService.GetAllItems();
+        return itemService.GetAllItems();
     }
     @GetMapping({"/{id}"})
     public Item GetItem(@PathVariable Long id){
-        return this.itemService.GetItemById(id);
+        return itemService.GetItemById(id);
     }
     @PostMapping
     public Item AddItem(@RequestBody Item item){
-        return this.itemService.AddItem(item);
+        return itemService.addItem(item);
     }
     @PutMapping({"/{id}"})
     public Item UpdateItem(@PathVariable Long id, @RequestBody Item itemDetails){
-        return this.itemService.UpdateItem(id, itemDetails);
+        return itemService.updateItem(id, itemDetails);
     }
     @DeleteMapping({"/{id}"})
     public void DeleteItem(@PathVariable Long id){
-        this.itemService.DeleteItem(id);
+        itemService.DeleteItem(id);
     }
 }
