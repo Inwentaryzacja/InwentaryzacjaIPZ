@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import TreeElement from "../components/TreeElement.vue";
 import { reactive, onMounted } from "vue";
+import get from "../domain/fetchTree";
+
 const data = reactive({ entry: {}, children: {} });
 
-onMounted(async () => {
-  const response = await fetch(
-    "http://localhost:8080/inventory_entries/user/1/tree"
-  );
-  const jsonData = await response.json();
+onMounted(async () => { 
+  const jsonData = await get();
 
   data.entry = jsonData.entry;
   data.children = jsonData.children;
@@ -23,14 +22,20 @@ onMounted(async () => {
       <div class="option" id="arrowDown">d</div>
     </div>
     <div class="elements">
-      <TreeElement v-bind="{ entry: data.entry, children: data.children }" />
+      <TreeElement
+        v-bind="{
+          entry: data.entry,
+          children: data.children,
+          recursionDepth: 0,
+        }"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
 .box {
-  width: 400px;
+  width: 25vw;
   height: 600px;
   border-right: solid rgba(0, 0, 0, 0.24) 1px;
   font-family: Arial;
@@ -55,6 +60,12 @@ onMounted(async () => {
   display: inline-block;
   margin: 24px;
   margin-top: 8px;
+}
+
+.elements {
+  overflow: scroll;
+  height: 500px;
+  width: 100%;
 }
 
 span {

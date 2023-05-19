@@ -6,5 +6,5 @@ import ItemsInfo from "../components/ItemsInfo.vue";
 <template>
   <HomeNav></HomeNav>
   <TreeNav></TreeNav>
-  <ItemsInfo></ItemsInfo>
+  <!-- <ItemsInfo></ItemsInfo> -->
 </template>
