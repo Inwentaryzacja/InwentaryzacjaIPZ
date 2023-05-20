@@ -36,9 +36,12 @@ onMounted(async () => {
 <style scoped>
 .box {
   border: solid rgba(0, 0, 0, 0.24) 1px;
-  font-family: Arial;
-  float: left;
-  
+  font-size: 0.5rem;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+
   /* 
   This is for scrollbar to appear on the left.
   Direction right to left makes everything float to right in the scope of this component. 
@@ -52,21 +55,22 @@ onMounted(async () => {
 
 .tools {
   width: 100%;
+  height: 10vh;
   background-color: #d4d4d4;
   text-align: center;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  gap: 30px;
+  gap: 2vh;
   align-items: baseline;
   font-size: 0.7rem;
 }
 
 .option {
-  width: 30px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 30px;
+  width: 6vh;
+  height: 6vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   line-height: 30px;
   display: inline-block;
   vertical-align: middle;
@@ -80,7 +84,7 @@ onMounted(async () => {
 
 .elements {
   overflow-y: scroll;
-  height: 70vh;
+  overflow-x: hidden;
   width: 100%;
 }
 </style>

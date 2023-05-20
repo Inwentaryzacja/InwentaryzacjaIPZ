@@ -1,21 +1,6 @@
 <script setup lang="ts">
 import { computed, type PropType } from "vue";
-interface Entry {
-  id: number;
-  item: Item;
-}
-
-interface Item {
-  name: string;
-  fillable: boolean;
-  createdAt: string;
-  description: string;
-}
-
-interface Child {
-  entry: Entry;
-  children: Entry[];
-}
+import { Child, Entry } from "../domain/fetchTree";
 
 const props = defineProps({
   entry: Object as PropType<Entry>,
@@ -53,7 +38,6 @@ const has_children = computed(() => {
 .wrap {
   width: 99%;
   box-sizing: border-box;
-  font-size: 12px;
   color: #0082fb;
 
   margin-left: 2px;
@@ -66,7 +50,7 @@ const has_children = computed(() => {
 
   border-left: 1px solid #385e72;
   border-bottom: 1px solid #385e72;
-  font-size: 16px;
+  font-size: 0.8rem;
 }
 
 .expandable {
@@ -80,6 +64,6 @@ const has_children = computed(() => {
   float: right;
   width: 40px;
   margin-right: 10px;
-  background-color: #6aabd2;
+  background-color: #b7cfdc;
 }
 </style>

@@ -18,7 +18,7 @@ import ItemsInfo from "../components/ItemsInfo.vue";
 }
 .tree {
   width: 30vw;
-  height: 70vh;
+  height: 80vh;
 }
 
 .items {
