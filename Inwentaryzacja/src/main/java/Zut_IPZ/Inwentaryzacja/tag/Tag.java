@@ -30,7 +30,7 @@ public class Tag {
     private Set<Item> items = new HashSet<>();
 
     @ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name="tag_attribute",
+    @JoinTable(name="attribute_in_tag",
             joinColumns=@JoinColumn(name="tag_id"),
             inverseJoinColumns=@JoinColumn(name="attribute_id"))
     private Set<Attribute> attributes = new HashSet<>();

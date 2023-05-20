@@ -29,7 +29,7 @@ public class Item {
     private String description;
 
     @ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name="item_tag",
+    @JoinTable(name="tag_in_item",
             joinColumns=@JoinColumn(name="item_id"),
             inverseJoinColumns=@JoinColumn(name="tag_id"))
     private Set<Tag> tags = new HashSet<>();
