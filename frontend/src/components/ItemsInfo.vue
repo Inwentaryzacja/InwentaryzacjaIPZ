@@ -1,7 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { selectedItemEntryStore } from "../stores/selectedItemEntryStore";
+
+const store = selectedItemEntryStore();
+const { selectedEntry } = storeToRefs(store);
+</script>
 <template>
   <div class="items-info-container">
     <h1 class="item-name-header">Lodówka</h1>
+    
+    {{ selectedEntry?.item.name }}
 
     <div class="grid-container">
       <div class="grid-item header key">Atrybut</div>

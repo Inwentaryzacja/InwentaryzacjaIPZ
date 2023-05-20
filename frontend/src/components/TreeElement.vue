@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type PropType } from "vue";
 import { Child, Entry } from "../domain/fetchTree";
+import { selectedItemEntryStore } from "../stores/selectedItemEntryStore";
 
 const props = defineProps({
   entry: Object as PropType<Entry>,
@@ -11,12 +12,21 @@ const props = defineProps({
 const has_children = computed(() => {
   return props?.children?.length != undefined && props.children.length > 0;
 });
+
+const store = selectedItemEntryStore();
+
+function selectAndLoadIntoStore() {
+  if (props?.entry != undefined) {
+    store.set(props.entry);
+  }
+}
 </script>
 
 <template>
   <div
     class="wrap"
     :class="{ expandable: has_children, 'non-expandable': !has_children }"
+    @click.stop="selectAndLoadIntoStore"
   >
     {{ props?.entry?.item?.name }}
     <span v-if="has_children">
