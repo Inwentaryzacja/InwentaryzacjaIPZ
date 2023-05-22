@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, type PropType } from "vue";
-import { Child, Entry } from "../domain/fetchTree";
+import { computed, ref, type PropType } from "vue";
+import { Entry, Child } from "../domain/fetchTree";
 import { selectedItemEntryStore } from "../stores/selectedItemEntryStore";
 
 const props = defineProps({
@@ -15,7 +15,13 @@ const has_children = computed(() => {
 
 const store = selectedItemEntryStore();
 
-function selectAndLoadIntoStore() {
+const shouldShow = ref(true);
+
+function toggleShouldShow() {
+  shouldShow.value = !shouldShow.value;
+}
+
+function loadIntoStore() {
   if (props?.entry != undefined) {
     store.set(props.entry);
   }
@@ -24,16 +30,29 @@ function selectAndLoadIntoStore() {
 
 <template>
   <div
+    @click.self="loadIntoStore"
     class="wrap"
-    :class="{ expandable: has_children, 'non-expandable': !has_children }"
-    @click.stop="selectAndLoadIntoStore"
+    :class="{
+      expandable: has_children,
+      'non-expandable': !has_children,
+    }"
   >
-    {{ props?.entry?.item?.name }}
     <span v-if="has_children">
-      <button class="expand-btn">v</button>
+      <img
+        @click.stop="toggleShouldShow"
+        class="arrow"
+        :class="{
+          'arrow-open': shouldShow,
+          'arrow-close': !shouldShow,
+        }"
+        :src="shouldShow ? 'arrowopen.svg' : 'arrowclosed.svg'"
+      />
     </span>
-    <div v-for="child in children">
+    {{ props?.entry?.item?.name }}
+
+    <div class="children" v-for="child in children">
       <TreeElement
+        v-if="shouldShow"
         v-bind="{
           entry: child?.entry,
           children: child?.children,
@@ -43,8 +62,13 @@ function selectAndLoadIntoStore() {
     </div>
   </div>
 </template>
-
 <style scoped>
+.arrow {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  height: 17px;
+}
 .wrap {
   width: 99%;
   box-sizing: border-box;
@@ -59,21 +83,8 @@ function selectAndLoadIntoStore() {
   padding-top: 10px;
 
   border-left: 1px solid #385e72;
-  border-bottom: 1px solid #385e72;
+
   font-size: 0.8rem;
-}
-
-.expandable {
-  background-color: white;
-}
-
-.non-expandable {
-  background-color: #b7cfdc;
-}
-.expand-btn {
-  float: right;
-  width: 40px;
-  margin-right: 10px;
-  background-color: #b7cfdc;
+  user-select: none;
 }
 </style>
