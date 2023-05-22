@@ -59,7 +59,7 @@ onMounted(async () => {
   background-color: #d4d4d4;
   text-align: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: space-evenly;
   gap: 2vh;
   align-items: baseline;
@@ -67,12 +67,15 @@ onMounted(async () => {
 }
 
 .option {
-  width: 6vh;
-  height: 6vh;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  line-height: 30px;
-  display: inline-block;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  width: 4vw;
+
+  /* line-height: 1.5rem; */
+  /* display: inline-block; */
+
   vertical-align: middle;
   font-size: 1.5rem;
   text-align: center;
