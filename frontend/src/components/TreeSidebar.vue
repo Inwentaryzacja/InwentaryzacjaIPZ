@@ -12,14 +12,28 @@ onMounted(async () => {
   root_entry.value = jsonData.entry;
   root_children.value = jsonData.children;
 });
+
+function addItem() {
+  console.log("Add item button clicked");
+}
+
+function deleteItem() {
+  console.log("Delete item button clicked");
+}
+
+function popItemUpwards() {
+  console.log("Pop item upwards button clicked");
+}
 </script>
 
 <template>
   <div class="box">
     <div class="tools">
-      <div class="option" id="add">+</div>
-      <div class="option" id="del">-</div>
-      <div class="option" id="arrowUp">u</div>
+      <button @click.stop="addItem" class="option" id="add">+</button>
+      <button @click.stop="deleteItem" class="option" id="del">-</button>
+      <button @click.stop="popItemUpwards" class="option" id="arrowUp">
+        u
+      </button>
     </div>
     <div class="elements">
       <TreeElement
@@ -64,6 +78,7 @@ onMounted(async () => {
   gap: 2vh;
   align-items: baseline;
   font-size: 0.7rem;
+  user-select: none;
 }
 
 .option {
@@ -72,9 +87,6 @@ onMounted(async () => {
   padding-left: 1vh;
   padding-right: 1vh;
   width: 4vw;
-
-  /* line-height: 1.5rem; */
-  /* display: inline-block; */
 
   vertical-align: middle;
   font-size: 1.5rem;
@@ -85,6 +97,10 @@ onMounted(async () => {
   border-radius: 5px;
 }
 
+.option:active {
+  background-color: white;
+  color: black;
+}
 .elements {
   overflow-y: scroll;
   overflow-x: hidden;

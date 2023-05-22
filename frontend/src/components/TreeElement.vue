@@ -67,7 +67,7 @@ function loadIntoStore() {
   display: inline;
   float: left;
   margin-right: 10px;
-  height: 17px;
+  height: 12px;
 }
 .wrap {
   width: 99%;
@@ -75,16 +75,17 @@ function loadIntoStore() {
   color: #0082fb;
 
   margin-left: 2px;
-  margin-bottom: 10px;
-  margin-top: 10px;
 
   padding-left: 10px;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 
   border-left: 1px solid #385e72;
-
   font-size: 0.8rem;
   user-select: none;
+}
+
+.wrap .non-expandable {
+  border-left: 1px solid #6aabd2;
 }
 </style>
