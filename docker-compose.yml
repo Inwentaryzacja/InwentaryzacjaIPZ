@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  inwentaryzacja-frontend:
+    build: ./frontend
+    container_name: front
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /srv/front
+      - /srv/front/node_modules
+    ports:
+      - 5173:5173
+    working_dir: /srv/front
+    tty: true
+    stdin_open: true

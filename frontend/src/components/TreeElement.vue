@@ -1,23 +1,91 @@
 <script setup lang="ts">
+import { computed, ref, type PropType } from "vue";
+import { Entry, Child } from "../domain/fetchTree";
+import { selectedItemEntryStore } from "../stores/selectedItemEntryStore";
 
-defineProps(['entry','children']);
+const props = defineProps({
+  entry: Object as PropType<Entry>,
+  children: Array as PropType<Array<Child>>,
+  recursionDepth: { type: Number, required: true },
+});
 
+const has_children = computed(() => {
+  return props?.children?.length != undefined && props.children.length > 0;
+});
+
+const store = selectedItemEntryStore();
+
+const shouldShow = ref(true);
+
+function toggleShouldShow() {
+  shouldShow.value = !shouldShow.value;
+}
+
+function loadIntoStore() {
+  if (props?.entry != undefined) {
+    store.set(props.entry);
+  }
+}
 </script>
 
 <template>
-  <div class="wrap">
-    {{ entry?.item?.name }} <span v-if="children.length > 0"> v</span>
-    <div v-for="child in children" style="padding-left: 20px;">
-      <TreeElement class="tree-element" v-bind="{ entry: child.entry, children: child.children }" />
+  <div
+    @click.self="loadIntoStore"
+    class="wrap"
+    :class="{
+      expandable: has_children,
+      'non-expandable': !has_children,
+    }"
+  >
+    <span v-if="has_children">
+      <img
+        @click.stop="toggleShouldShow"
+        class="arrow"
+        :class="{
+          'arrow-open': shouldShow,
+          'arrow-close': !shouldShow,
+        }"
+        :src="shouldShow ? 'arrowopen.svg' : 'arrowclosed.svg'"
+      />
+    </span>
+    {{ props?.entry?.item?.name }}
+
+    <div class="children" v-for="child in children">
+      <TreeElement
+        v-if="shouldShow"
+        v-bind="{
+          entry: child?.entry,
+          children: child?.children,
+          recursionDepth: recursionDepth + 1,
+        }"
+      />
     </div>
   </div>
 </template>
-
 <style scoped>
+.arrow {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  height: 12px;
+}
 .wrap {
-  width: 100%;
-  font-size: 12px;
+  width: 99%;
+  box-sizing: border-box;
   color: #0082fb;
 
+  margin-left: 2px;
+
+  padding-left: 10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+
+  border-left: 1px solid #385e72;
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.wrap .non-expandable {
+  border-left: 1px solid #6aabd2;
 }
 </style>

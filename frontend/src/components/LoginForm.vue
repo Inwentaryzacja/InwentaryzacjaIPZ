@@ -3,7 +3,7 @@
 <template>
   <form id="login">
     <img
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1000px-Adidas_Logo.svg.png"
+      src="box.png"
     /><br />
     <label for="email">Email</label><br />
     <input type="text" id="email" placeholder="Wpisz Email" /><br /><br />
