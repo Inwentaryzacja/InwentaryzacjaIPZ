@@ -1,5 +1,8 @@
 export async function get(): Promise<Child> {
-  const response = await fetch("../../test_jsons/items_tree_for_user.json");
+  const response = await fetch("http://localhost:8080/inventory_entries/user/1/tree");
+  // const response = await fetch("http://localhost:4545/roles");
+
+  console.log(response);
   const jsonData = await response.json();
   console.log(jsonData);
   return jsonData;

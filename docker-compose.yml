@@ -10,6 +10,37 @@ services:
       - /srv/front/node_modules
     ports:
       - 5173:5173
+    depends_on:
+      - inwentaryzacja-backend
     working_dir: /srv/front
     tty: true
-    stdin_open: true
+
+  inwentaryzacja-backend:
+    build: ./Inwentaryzacja
+    container_name: back
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - inwentaryzacja-mysql
+    working_dir: /srv/back
+    tty: true
+
+  inwentaryzacja-mysql:
+    image: "mysql:8.0"
+    container_name: db
+    restart: always
+    ports:
+      - 3307:3306 # expose 3307 because mysql could be taking 3306 port on host
+    cap_add:
+      - SYS_NICE # supress unwanted messages
+    environment:
+      MYSQL_DATABASE: inventoryzut
+      MYSQL_ROOT_PASSWORD: inventoryzut!@
+      MYSQL_ROOT_HOST: "%" # allow root user to connect
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db:
