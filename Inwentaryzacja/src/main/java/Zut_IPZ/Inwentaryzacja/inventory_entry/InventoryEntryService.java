@@ -52,16 +52,19 @@ public class InventoryEntryService {
 
         return root;
 
+    }
+    public boolean UpInventoryEntry(Long id){
+        InventoryEntry entry = this.inventoryEntryRepository.getReferenceById(id);
+        InventoryEntry parent = entry.getParent().getParent();
 
-//        List<InventoryEntry> entries = this.inventoryEntryRepository.findByUser_Id(id);
-//        InventoryEntry root = this.GetUserRootInventoryEntry(id);
-//        DefaultTreeModel tree = new DefaultTreeModel((TreeNode) root);
-//        for(InventoryEntry entry : entries){
-//            if(entry.getParent() != null){
-//                tree.insertNodeInto((MutableTreeNode) entry, (MutableTreeNode) entry.getParent(), ((MutableTreeNode) entry.getParent()).getChildCount());
-//            }
-//        }
-//        return tree;
+        if(parent != null){
+            entry.setParent(parent);
+            this.inventoryEntryRepository.save(entry);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public List<InventoryEntry> GetChildrenInventoryEntries(Long id){
         return this.inventoryEntryRepository.findByParent_Id(id);

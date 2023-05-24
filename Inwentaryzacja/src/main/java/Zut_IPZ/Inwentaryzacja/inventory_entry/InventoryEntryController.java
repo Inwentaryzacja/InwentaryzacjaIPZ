@@ -3,6 +3,7 @@ package Zut_IPZ.Inwentaryzacja.inventory_entry;
 import Zut_IPZ.Inwentaryzacja.attribute_value.AttributeValue;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,6 +67,12 @@ public class InventoryEntryController {
     @PutMapping({"/{id}"})
     public InventoryEntry UpdateInventoryEntry(@PathVariable Long id, @RequestBody InventoryEntry inventoryEntryDetails){
         return this.inventoryEntryService.UpdateInventoryEntry(id, inventoryEntryDetails);
+    }
+
+    @PutMapping({"/up/{id}"})
+    public ResponseEntity<?> UpInventoryEntry(@PathVariable Long id){
+        this.inventoryEntryService.UpInventoryEntry(id);
+        return ResponseEntity.ok().build();
     }
     @DeleteMapping({"/{id}"})
     public void DeleteInventoryEntry(@PathVariable Long id){
