@@ -1,13 +1,10 @@
 import AppVue from "../App.vue";
-import LoginFormVue from "../components/LoginForm.vue";
-import RegistrationFormVue from "../components/RegistrationForm.vue";
-import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import LoginView from "../views/LoginView.vue";
+import RegisterView from "../views/RegisterView.vue";
+import DeleteItemView from "../views/DeleteItemView.vue";
 
-// const router = [
-//   { path: "/", component: AppVue },
-//   { path: "/login", component: LoginFormVue },
-//   { path: "/register", component: RegistrationFormVue },
-// ];
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,17 +12,22 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("../views/HomeView.vue"),
+      component: HomeView,
     },
     {
       path: "/register",
       name: "register",
-      component: () => import("../views/RegisterView.vue"),
+      component: RegisterView,
     },
     {
       path: "/login",
       name: "login",
-      component: () => import("../views/LoginView.vue"),
+      component: LoginView,
+    },
+    {
+      path: "/delete_item",
+      name: "delete_item",
+      component: DeleteItemView,
     },
   ],
 });

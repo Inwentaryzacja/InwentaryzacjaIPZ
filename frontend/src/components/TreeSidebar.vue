@@ -30,7 +30,10 @@ function popItemUpwards() {
   <div class="box">
     <div class="tools">
       <button @click.stop="addItem" class="option" id="add">+</button>
-      <button @click.stop="deleteItem" class="option" id="del">-</button>
+      <button @click.stop="$router.push('delete_item')" class="option" id="del">
+        -
+      </button>
+      
       <button @click.stop="popItemUpwards" class="option" id="arrowUp">
         u
       </button>
