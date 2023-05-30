@@ -6,25 +6,23 @@ import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 const { selectedEntry } = storeToRefs(selectedItemEntryStore());
+const router = useRouter();
 
 async function deleteItem() {
-  const router = useRouter();
-
   const entry = selectedEntry.value;
   let id = entry?.id;
 
   if (id === null || id === undefined) return;
-
   let res = await fetch(`http://localhost:8080/inventory_entries/${id}`, {
     method: "DELETE",
   });
 
   if (res.status === HttpStatusCode.Ok) {
     console.log(`Deleted item id=${id}, name=${entry?.item?.name}`);
-    router.push("/");
   } else {
     alert(`Failed to delete item.`);
   }
+  router.push("/");
 }
 </script>
 
@@ -44,12 +42,11 @@ async function deleteItem() {
 </template>
 
 <style scoped lang="scss">
-
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
 }
 
 .wrap {
@@ -64,10 +61,9 @@ async function deleteItem() {
 }
 
 form {
-    width: 30vw;
-    height: 30vh;
-    margin: 0 auto;
-
+  width: 30vw;
+  height: 30vh;
+  margin: 0 auto;
 
   h3 {
     margin-top: 10px;
@@ -75,7 +71,7 @@ form {
     width: 100%;
   }
   button {
-    @include border-radius(5px); 
+    @include border-radius(5px);
     margin-top: 10px;
     width: 100%;
     height: 2rem;
