@@ -1,6 +1,5 @@
 export async function get(): Promise<Child> {
   const response = await fetch("http://localhost:8080/inventory_entries/user/1/tree");
-  // const response = await fetch("http://localhost:4545/roles");
 
   console.log(response);
   const jsonData = await response.json();
@@ -20,6 +19,7 @@ export interface Entry {
   addedAt: string;
   quantity: number;
   userId: number;
+  attributeValues: AttributeValue[];
 }
 
 export interface Item {
@@ -27,4 +27,14 @@ export interface Item {
   fillable: boolean;
   createdAt: string;
   description: string;
+}
+
+export interface AttributeValue {
+  attribute: AttributeType;
+  value: Object
+}
+
+export interface  AttributeType {
+  name: string;
+  type: { name: string }
 }

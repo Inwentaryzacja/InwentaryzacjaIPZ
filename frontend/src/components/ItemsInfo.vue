@@ -28,39 +28,11 @@ const { selectedEntry } = storeToRefs(store);
         }}
       </div>
     </div>
+    
     <!-- More data for layout overflow test -->
-    <div class="grid-container">
-      <div class="grid-item key">Test</div>
-      <div class="grid-item value">Test</div>
-      <div class="grid-item key">Long Attribute Test</div>
-      <div class="grid-item value">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-        dolorum nihil quis vel rem necessitatibus dolores veniam fugiat vero
-        placeat, possimus aperiam laboriosam facere numquam adipisci nostrum
-        debitis eos consectetur!
-      </div>
-    </div>
-    <div class="grid-container">
-      <div class="grid-item key">Test</div>
-      <div class="grid-item value">Test</div>
-      <div class="grid-item key">Long Attribute Test</div>
-      <div class="grid-item value">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-        dolorum nihil quis vel rem necessitatibus dolores veniam fugiat vero
-        placeat, possimus aperiam laboriosam facere numquam adipisci nostrum
-        debitis eos consectetur!
-      </div>
-    </div>
-    <div class="grid-container">
-      <div class="grid-item key">Test</div>
-      <div class="grid-item value">Test</div>
-      <div class="grid-item key">Long Attribute Test</div>
-      <div class="grid-item value">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-        dolorum nihil quis vel rem necessitatibus dolores veniam fugiat vero
-        placeat, possimus aperiam laboriosam facere numquam adipisci nostrum
-        debitis eos consectetur!
-      </div>
+    <div class="grid-container dynamic_attributes" v-for="attributeVal in selectedEntry?.attributeValues">
+      <div class="grid-item key">{{ attributeVal?.attribute?.name }}</div>
+      <div class="grid-item value">{{ attributeVal?.value }}</div> 
     </div>
   </div>
 </template>
