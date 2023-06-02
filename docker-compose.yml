@@ -46,5 +46,17 @@ services:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  inwentaryzacja-rest-api-tests:
+    build: 
+      context: ./
+      dockerfile: ./rest_api_tests/Dockerfile
+    container_name: rest-tests
+    volumes:
+      - ./db/init.sql:/init.sql
+    restart: on-failure
+    depends_on:
+      - inwentaryzacja-backend
+      - inwentaryzacja-mysql
+
 volumes:
   db:
