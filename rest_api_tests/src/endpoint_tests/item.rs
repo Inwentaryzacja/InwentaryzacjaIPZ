@@ -1,4 +1,4 @@
-use crate::endpoint_tests::traits::EndpointTestCase;
+use crate::test_lib::EndpointTestCase;
 
 use crate::endpoint_tests::test_utils;
 use anyhow::anyhow;
@@ -34,6 +34,14 @@ struct AttributeType {
     name: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+struct ItemEndpointResponse {
+    timestamp: String,
+    status: usize,
+    error: Option<String>,
+    message: Option<String>,
+}
+
 // czy jakiegolwiek id powinno być podawane w request body?
 // dlaczego frontend ma podawać datę używaną w createdAt
 // po co
@@ -56,14 +64,6 @@ impl EndpointTestCase for AddGetRemoveItemTest {
                 }],
             }],
         };
-
-        #[derive(Serialize, Deserialize, Debug)]
-        struct ItemEndpointResponse {
-            timestamp: String,
-            status: usize,
-            error: Option<String>,
-            message: Option<String>,
-        }
 
         let res = test_utils::post(endpoint, client, &body)
             .await?

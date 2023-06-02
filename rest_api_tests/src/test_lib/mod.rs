@@ -1,4 +1,6 @@
 pub mod dotenv_load;
-pub mod test_pool;
+pub mod pool;
+pub mod traits;
 
-pub use test_pool::{TestPool, TestSuiteBuilder};
+pub use pool::TestSuiteBuilder;
+pub use traits::EndpointTestCase;

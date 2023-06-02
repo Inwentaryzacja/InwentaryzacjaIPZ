@@ -5,7 +5,7 @@ mod database;
 mod endpoint_tests;
 mod test_lib;
 
-use test_lib::test_pool::TestSuiteBuilder;
+use test_lib::TestSuiteBuilder;
 
 #[tokio::main]
 async fn main() -> Result<()> {

@@ -3,7 +3,7 @@ use reqwest::{Client, IntoUrl, Url};
 use sqlx::MySqlPool;
 
 use crate::database;
-use crate::endpoint_tests::traits::EndpointTestCase;
+use crate::test_lib::traits::EndpointTestCase;
 
 use crate::test_lib::dotenv_load;
 
