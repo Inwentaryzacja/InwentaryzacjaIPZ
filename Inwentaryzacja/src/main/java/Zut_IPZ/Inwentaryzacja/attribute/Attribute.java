@@ -30,11 +30,11 @@ public class Attribute {
     @JoinColumn(name = "type_id")
     private @NotNull AttributeType type;
 
-    @ManyToMany(mappedBy="attributes", cascade={CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(mappedBy="attributes", cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     private Set<Tag> tags = new HashSet<>();
 
-    @OneToMany(mappedBy = "attribute", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "attribute", cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     private Set<AttributeValue> attributeValues = new HashSet<>();
 
@@ -43,3 +43,5 @@ public class Attribute {
         this.name=name;
     }
 }
+
+
