@@ -1,10 +1,11 @@
-FROM maven:3.9.2-amazoncorretto-17
-
-
-WORKDIR /srv/back
-
-COPY . .
-
-EXPOSE 8080
-
-CMD ["mvn", "spring-boot:run"]
+FROM eclipse-temurin:17-jdk-focal
+ 
+WORKDIR /app
+ 
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+ 
+COPY src ./src
+RUN ./mvnw clean install -Dmaven.test.skip=true
+ENTRYPOINT ["java", "-jar", "/app/target/Inwentaryzacja-0.0.1-SNAPSHOT.jar"]
