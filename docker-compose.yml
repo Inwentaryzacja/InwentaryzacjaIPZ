@@ -18,16 +18,11 @@ services:
   inwentaryzacja-backend:
     build: ./Inwentaryzacja
     container_name: back
-    volumes:
-      - type: bind
-        source: ./Inwentaryzacja
-        target: /srv/back
     restart: always
     ports:
       - 8080:8080
     depends_on:
       - inwentaryzacja-mysql
-    working_dir: /srv/back
     tty: true
 
   inwentaryzacja-mysql:
