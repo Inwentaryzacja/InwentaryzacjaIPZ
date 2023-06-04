@@ -1,0 +1,23 @@
+[package]
+name = "rest_api_tests"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+lto = true
+
+[dependencies]
+tokio = { version = "1.28.2", features = ["full"] }
+sqlx = { version = "0.6.3", features = [
+    "runtime-tokio-native-tls",
+    "macros",
+    "mysql",
+] }
+dotenv = "0.15.0"
+dotenv_codegen = "0.15.0"
+itertools = "0.10.5"
+async-trait = "0.1.68"
+reqwest = { version = "0.11.18", features = ["json"] }
+anyhow = "1.0.71"
+serde = { version = "1.0.163", features = ["derive"] }
+serde_json = "1.0.96"
