@@ -3,11 +3,11 @@ use reqwest::{Client, IntoUrl, Url};
 use sqlx::MySqlPool;
 
 use crate::database;
-use crate::test_lib::traits::EndpointTestCase;
+use crate::test_lib::traits::EndpointTest;
 
 use crate::test_lib::dotenv_load;
 
-type Test = Box<dyn EndpointTestCase>;
+type Test = Box<dyn EndpointTest>;
 
 pub struct TestCaseCtx {
     test: Test,
@@ -32,7 +32,7 @@ impl TestSuiteBuilder {
 
     pub fn add_test(
         mut self,
-        test_case: impl EndpointTestCase + 'static,
+        test_case: impl EndpointTest + 'static,
         endpoint_url: impl IntoUrl,
     ) -> Result<Self> {
         self.tests.push(TestCaseCtx {
@@ -63,12 +63,14 @@ impl TestPool {
     /// Please note that before every test is ran, whole database is dropped and reinitialized using the provided database connection pool.
     pub async fn execute(self) -> Result<()> {
         for TestCaseCtx { test, endpoint } in self.test_cases {
+            println!("Test url: {endpoint}");
             // let init_script_path = dotenv_load::get_path();
             // println!("Reloading the database");
             // database::drop_all_tables(&self.pool).await?;
             // database::execute_file(&init_script_path, &self.pool).await?;
             // println!("Initialized the database with {init_script_path}");
             test.execute(endpoint, &self.http_client).await?;
+            println!("Ok.");
         }
         Ok(())
     }

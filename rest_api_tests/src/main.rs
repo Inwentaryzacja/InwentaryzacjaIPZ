@@ -1,5 +1,5 @@
 use anyhow::Result;
-use endpoint_tests::item;
+use endpoint_tests::{tag, attribute};
 mod database;
 
 mod endpoint_tests;
@@ -11,8 +11,7 @@ use test_lib::TestSuiteBuilder;
 async fn main() -> Result<()> {
     TestSuiteBuilder::create()
         .await?
-        // .add_test(attribute::AttributeTest, "http://back:8080/attributes")?
-        .add_test(item::AddGetRemoveItemTest, "http://localhost:8080/items")?
+        .add_test(attribute::AttributeInTagDelete, "http://localhost:8080/attributes")?
         .compile()
         .execute()
         .await?;
