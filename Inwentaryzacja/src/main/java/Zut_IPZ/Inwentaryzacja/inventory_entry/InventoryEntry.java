@@ -37,6 +37,6 @@ public class InventoryEntry {
     @JoinColumn(name = "user_id")
     private @NonNull User user;
 
-    @OneToMany(mappedBy = "inventoryEntry", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "inventoryEntry", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Set<AttributeValue> attributeValues = new HashSet<>();
 }
