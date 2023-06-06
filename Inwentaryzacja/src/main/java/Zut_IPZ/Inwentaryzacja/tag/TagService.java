@@ -58,6 +58,14 @@ public class TagService {
     }
 
     public void DeleteTag(Long id){
+        Attribute attribute = attributeRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Attribute not found with id " + id));
+
+        for (Tag tag : attribute.getTags()) {
+            tag.getAttributes().remove(attribute);
+            tagRepository.save(tag);
+        }
+
+        attributeRepository.delete(attribute);
         tagRepository.deleteById(id);
     }
 }
