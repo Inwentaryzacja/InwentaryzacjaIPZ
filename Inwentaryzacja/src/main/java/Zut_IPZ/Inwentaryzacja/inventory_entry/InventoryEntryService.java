@@ -66,6 +66,27 @@ public class InventoryEntryService {
             return false;
         }
     }
+    public boolean UpChildrenInventoryEntry(Long id){
+        InventoryEntry entry = this.inventoryEntryRepository.getReferenceById(id);
+        if(entry == null){
+            return false;
+        }
+        InventoryEntry parent = entry.getParent();
+        if(parent == null){
+            return false;
+        }
+        List<InventoryEntry> children = this.inventoryEntryRepository.findByParent_Id(id);
+        if(children == null){
+            return false;
+        }
+
+        for(InventoryEntry child : children){
+            child.setParent(parent);
+            this.inventoryEntryRepository.save(child);
+        }
+
+        return true;
+    }
     public List<InventoryEntry> GetChildrenInventoryEntries(Long id){
         return this.inventoryEntryRepository.findByParent_Id(id);
     }

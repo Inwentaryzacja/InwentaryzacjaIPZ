@@ -71,6 +71,7 @@ AddInventoryEntry(InventoryEntry inventoryEntry) = inventory_entries POST
 UpdateInventoryEntry(Long id, InventoryEntry inventoryEntryDetails) = inventory_entries/{id} PUT
 DeleteInventoryEntry(Long id) = inventory_entries/{id} DELETE
 UpInventoryEntry(Long id) = inventory_entries/up/{id} PUT <- przenosi entry poziom wyżej
+UpChildrenInventoryEntry(Long id) = inventory_entries/upChildren/{id} PUT <- przenosi wszystkie dzieci entry poziom wyżej
 
 attribute_value
 GetAllAttributesValues() = /attributes_values GET
