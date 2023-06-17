@@ -74,6 +74,12 @@ public class InventoryEntryController {
         this.inventoryEntryService.UpInventoryEntry(id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping({"/upChildren/{id}"})
+    public ResponseEntity<?> UpChildrenInventoryEntry(@PathVariable Long id){
+        this.inventoryEntryService.UpChildrenInventoryEntry(id);
+        return ResponseEntity.ok().build();
+    }
     @DeleteMapping({"/{id}"})
     public void DeleteInventoryEntry(@PathVariable Long id){
         this.inventoryEntryService.DeleteInventoryEntry(id);

@@ -1,17 +1,10 @@
 package Zut_IPZ.Inwentaryzacja.inventory_entry;
 
-import Zut_IPZ.Inwentaryzacja.item.Item;
-import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.TooManyListenersException;
 
 @Service
 public class InventoryEntryService {
@@ -24,9 +17,8 @@ public class InventoryEntryService {
         return this.inventoryEntryRepository.findAll();
     }
     public InventoryEntry GetInventoryEntryById(Long id){
-        return (InventoryEntry) this.inventoryEntryRepository.findById(id).orElseThrow(() -> {
-            return new NoSuchElementException("Inventory entry not found with id " + id);
-        });
+        return inventoryEntryRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("Inventory entry not found with id " + id));
     }
     public InventoryEntry GetUserRootInventoryEntry(Long id){
         return this.inventoryEntryRepository.findByParentIsNullAndUser_Id(id).get(0);
@@ -66,6 +58,27 @@ public class InventoryEntryService {
             return false;
         }
     }
+    public boolean UpChildrenInventoryEntry(Long id){
+        InventoryEntry entry = this.inventoryEntryRepository.getReferenceById(id);
+        if(entry == null){
+            return false;
+        }
+        InventoryEntry parent = entry.getParent();
+        if(parent == null){
+            return false;
+        }
+        List<InventoryEntry> children = this.inventoryEntryRepository.findByParent_Id(id);
+        if(children == null){
+            return false;
+        }
+
+        for(InventoryEntry child : children){
+            child.setParent(parent);
+            this.inventoryEntryRepository.save(child);
+        }
+
+        return true;
+    }
     public List<InventoryEntry> GetChildrenInventoryEntries(Long id){
         return this.inventoryEntryRepository.findByParent_Id(id);
     }
@@ -85,6 +98,7 @@ public class InventoryEntryService {
         return this.inventoryEntryRepository.save(inventoryEntry);
     }
     public void DeleteInventoryEntry(Long id){
+        UpChildrenInventoryEntry(id);
         this.inventoryEntryRepository.deleteById(id);
     }
 }
